@@ -1,7 +1,7 @@
 package campeonato;
 
 import campeonato.equipes.Carro;
-import campeonato.pistas.Interlagos;
+import campeonato.pistas.Pista;
 
 /**
  * Aqui é onde a corrida acontece!
@@ -9,7 +9,7 @@ import campeonato.pistas.Interlagos;
  * @author  angelo_foletto
  * @version 4.0
  * @since   2020-11-19
- * @update  2020-11-26
+ * @update  2020-12-01
  * */
 public class Main {
 
@@ -25,7 +25,7 @@ public class Main {
 			};
 	
 	//Distância do percurso em quilometros
-	public static final int DISTANCIA_DA_CORRIDA = 2150; 
+	public static final int DISTANCIA_DA_CORRIDA = 150; 
 
 	/**
 	 * Responsável por executar o programa, criando e chamando o objeto para
@@ -56,13 +56,13 @@ public class Main {
 				//"seco_molhado";
 				//"molhado";
 
-		Interlagos pista = new Interlagos(clima_pista, quantidade_carro); //Definição do clima (condições) da pista.
+		new Pista(clima_pista, quantidade_carro); //Definição do clima (condições) da pista.
 				
 		System.out.println(" * * * LARGADA * * *");
 		System.out.printf("CONDIÇÕES DA PISTA: %s \n", clima_pista);
 		System.out.printf("HOJE TEREMOS %d VEÍCULOS NA PISTA!!!\n", quantidade_carro);
 		System.out.printf("! ! ! FAÇAM SUAS APOSTAS, LET's ROCK ! ! !");
-		sleep(5000);
+		//sleep(5000);
 		
 		for (int x = 0; x < quantidade_carro; x++) {
 			corrida[x] = new Carro(NOME_CARRO[x], DISTANCIA_DA_CORRIDA);

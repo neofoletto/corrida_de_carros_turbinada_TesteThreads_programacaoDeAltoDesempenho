@@ -1,6 +1,6 @@
 package campeonato.equipes;
 
-import campeonato.pistas.Interlagos;
+import campeonato.pistas.Pista;
 
 /**
  * Classe responsável por criar os veículos que vazem parte da corrida.
@@ -165,10 +165,10 @@ public class Carro extends Thread {
 			System.out.println(atualizacao());
 //				System.out.println(Pista.pontoDeAtualizacao());
 //			}
-			if ((this.distanciaPercorrida >= Interlagos.getGas() || this.distanciaPercorrida >= Interlagos.getPneu())
-					&& Interlagos.listaCarroRemoveUm(this.nome)) {
+			if ((this.distanciaPercorrida >= Pista.getGas() || this.distanciaPercorrida >= Pista.getPneu())
+					&& Pista.listaCarroRemoveUm(this.nome)) {
 				System.out.println(pitStop());
-				Interlagos.listaCarroVerificacao();
+				Pista.listaCarroVerificacao();
 			}
 		}
 		System.out.println(chegada());

@@ -13,7 +13,7 @@ import campeonato.Main;
  * @since   2020-11-26
  * @update  2020-12-01
  */
-public abstract class Pista {
+public class Pista {
 
 	/**
 	 /**
@@ -24,6 +24,7 @@ public abstract class Pista {
 	private final double MULTIPLICADOR_SECO 		   = 1.5;
 	private final double MULTIPLICADOR_SECO_MOLHADO = 1.65;
 	private final double MULTIPLICADOR_MOLHADO 	   = 1.8;
+	// Checagem do avanço de cada veículo ao passar pelo ponto de avanço
 	private final static double PONTO_DE_ATUALIZACAO_AVANCO = 25;
 
 	/**
