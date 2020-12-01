@@ -7,7 +7,7 @@ import campeonato.pistas.Pista;
  * Aqui é onde a corrida acontece!
  * 	
  * @author  angelo_foletto
- * @version 4.0
+ * @version 4.1
  * @since   2020-11-19
  * @update  2020-12-01
  * */

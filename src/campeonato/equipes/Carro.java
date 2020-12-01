@@ -132,10 +132,11 @@ public class Carro extends Thread {
 	 * @author  angelo_foletto
 	 * @version 2.1
 	 * @since   2020-11-19
-	 * @update  2020-11-26
+	 * @update  2020-12-01
 	 */
 	private String atualizacao() {
 		this.sb_atualizacao = new StringBuilder();
+		this.sb_atualizacao.append("-----> Carro ");
 		this.sb_atualizacao.append(this.nome);
 		this.sb_atualizacao.append(" deslocou ");
 		// Para entregar a distância formtada com duas casas decimais.
@@ -159,12 +160,12 @@ public class Carro extends Thread {
 	public void run() {
 		while (this.distanciaPercorrida < this.distanciaTotal) {
 			avancar();
-			//zif (this.distanciaPercorrida < Pista.getPontoDeAtualizacao())
-//				atualizacao();
-//			else {
-			System.out.println(atualizacao());
-//				System.out.println(Pista.pontoDeAtualizacao());
-//			}
+			if (this.distanciaPercorrida < Pista.getPontoDeAtualizacao())
+				atualizacao();
+			else {
+				//System.out.println(atualizacao());
+				System.out.println(Pista.pontoDeAtualizacao(this.nome));
+			}
 			if ((this.distanciaPercorrida >= Pista.getGas() || this.distanciaPercorrida >= Pista.getPneu())
 					&& Pista.listaCarroRemoveUm(this.nome)) {
 				System.out.println(pitStop());

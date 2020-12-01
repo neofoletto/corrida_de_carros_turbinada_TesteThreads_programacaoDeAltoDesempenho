@@ -30,7 +30,8 @@ public class Pista {
 	/**
 	 * Declaração de veriáveis dinâmicas
 	 */
-	private static ArrayList<String> lista;
+	private static ArrayList<String> veiculoParouPitstop;
+	private static ArrayList<String> veiculoPassouPontoVerificacao;
 	private static double gas;
 	private static double gasFixo;
 	private static double pneu;
@@ -154,7 +155,7 @@ public class Pista {
 	}
 	
 	/**
-	 * Populando a lista de verificação.
+	 * Populando a lista com veículos que ainda não fizeram pitstop.
 	 * 
 	 * @return void
 	 * 
@@ -163,28 +164,27 @@ public class Pista {
 	 * @since   2020-11-26
 	 */
 	private static void listaCarroPopulacao() {
-		lista = new ArrayList<String>();
+		veiculoParouPitstop = new ArrayList<String>();
 		for (String i : Main.NOME_CARRO)
-			lista.add(i);
+			veiculoParouPitstop.add(i);
 	}
 
 	public static boolean listaCarroRemoveUm(String nome) {
-		for (int i = 0; i < lista.size(); i++)
-			if (lista.get(i).equals(nome)) {
-				lista.remove(i);
+		for (int i = 0; i < veiculoParouPitstop.size(); i++)
+			if (veiculoParouPitstop.get(i).equals(nome)) {
+				veiculoParouPitstop.remove(i);
 				return true;
 			}
 		return false;
 	}
 	
 	public static void listaCarroVerificacao() {
-		if (lista.isEmpty()) {
+		if (veiculoParouPitstop.isEmpty()) {
 			listaCarroPopulacao();
 			gas += gasFixo;
 			pneu += pneuFixo;
 		}
 	}
-	
 	
 	/**
 	 * INCOMPLETO
@@ -195,20 +195,58 @@ public class Pista {
 	 * @return void
 	 * 
 	 * @author  angelo_foletto
-	 * @version 1.8
+	 * @version 1.9
 	 * @since   2020-11-26
+	 * @update  2020-12-01
 	 */
-	public static String pontoDeAtualizacao() {
-		if (--count == 0) { 
+	public static String pontoDeAtualizacao(String nome) {
+		if (++count <= numeroCarros) { 
 			StringBuilder sb = new StringBuilder();
-			pontoDeAtualizacao += PONTO_DE_ATUALIZACAO_AVANCO;
-			count = numeroCarros;
-			//
 			sb.append("");
 			sb.append("Checkpoint KM: ");
 			sb.append(pontoDeAtualizacao);
+			sb.append("  --> Carro ");
+			sb.append(nome);
+			
+			
 			return sb.toString();
+		} else {
+			pontoDeAtualizacao += PONTO_DE_ATUALIZACAO_AVANCO;
+			count = 0;
 		}
+			
 		return null;
+	}
+	
+	/**
+	 * Populando a lista com veículos que ainda não cruzaram o ponto de verificação.
+	 * 
+	 * @return void
+	 * 
+	 * @author  angelo_foletto
+	 * @version 1.0
+	 * @since   2020-12-01
+	 */
+	private static void listaCarroPopulacao() {
+		veiculoParouPitstop = new ArrayList<String>();
+		for (String i : Main.NOME_CARRO)
+			veiculoParouPitstop.add(i);
+	}
+
+	public static boolean listaCarroRemoveUm(String nome) {
+		for (int i = 0; i < veiculoParouPitstop.size(); i++)
+			if (veiculoParouPitstop.get(i).equals(nome)) {
+				veiculoParouPitstop.remove(i);
+				return true;
+			}
+		return false;
+	}
+	
+	public static void listaCarroVerificacao() {
+		if (veiculoParouPitstop.isEmpty()) {
+			listaCarroPopulacao();
+			gas += gasFixo;
+			pneu += pneuFixo;
+		}
 	}
 }
