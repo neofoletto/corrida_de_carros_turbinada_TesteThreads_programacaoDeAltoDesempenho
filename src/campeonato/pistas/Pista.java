@@ -48,6 +48,7 @@ public class Pista {
 	 * @author  angelo_foletto
 	 * @version 1.2
 	 * @since   2020-11-26
+	 * @update  2020-12-02
 	 */
 	public Pista(String key, int numeroCarros) {
 		switch (key) {
@@ -65,6 +66,7 @@ public class Pista {
 		this.numeroCarros = numeroCarros;
 		
 		listaCarroPopulacao();
+		listaVerificacaoCheckpointIserir();
 		fixaValoresGasPneu();
 	}
 
@@ -148,6 +150,16 @@ public class Pista {
 		this.pneu = this.gas * this.MULTIPLICADOR_MOLHADO;
 	}	
 	
+	/**
+	 * Atribuí dados a variáveis de apoio para alimentar o contador, tanto de
+	 * autonomia em quilometragem e desgaste do pneu.
+	 * 
+	 * @return void
+	 * 
+	 * @author  angelo_foletto
+	 * @version 1.0
+	 * @since   2020-12-01
+	 */
 	private void fixaValoresGasPneu() {
 		//Fixa dados do pneu e gás para persistência.
 		this.gasFixo = this.gas;
@@ -169,6 +181,16 @@ public class Pista {
 			veiculoParouPitstop.add(i);
 	}
 
+	/**
+	 * Remove um veículo da lista que realizou o pitstop.
+	 * 
+	 * @return void
+	 * 
+	 * @author  angelo_foletto
+	 * @version 1.0
+	 * @since   2020-12-01
+	 * @update  2020-12-02
+	 */
 	public static boolean listaCarroRemoveUm(String nome) {
 		for (int i = 0; i < veiculoParouPitstop.size(); i++)
 			if (veiculoParouPitstop.get(i).equals(nome)) {
@@ -178,6 +200,16 @@ public class Pista {
 		return false;
 	}
 	
+	/**
+	 * Valida se todos os veículos já pararam no pitstop.
+	 * 
+	 * @return void
+	 * 
+	 * @author  angelo_foletto
+	 * @version 1.0
+	 * @since   2020-12-01
+	 * @update  2020-12-02
+	 */
 	public static void listaCarroVerificacao() {
 		if (veiculoParouPitstop.isEmpty()) {
 			listaCarroPopulacao();
@@ -187,35 +219,25 @@ public class Pista {
 	}
 	
 	/**
-	 * INCOMPLETO
-	 * 
 	 * Retorna informações sobre os pontos de atualização da pista, informando
 	 * qual veículo cruzou ou encontra-se neste ponto (quilometro da pista).
 	 * 
 	 * @return void
 	 * 
 	 * @author  angelo_foletto
-	 * @version 1.9
+	 * @version 1.0
 	 * @since   2020-11-26
-	 * @update  2020-12-01
+	 * @update  2020-12-02
 	 */
 	public static String pontoDeAtualizacao(String nome) {
-		if (++count <= numeroCarros) { 
-			StringBuilder sb = new StringBuilder();
-			sb.append("");
-			sb.append("Checkpoint KM: ");
-			sb.append(pontoDeAtualizacao);
-			sb.append("  --> Carro ");
-			sb.append(nome);
-			
-			
-			return sb.toString();
-		} else {
-			pontoDeAtualizacao += PONTO_DE_ATUALIZACAO_AVANCO;
-			count = 0;
-		}
-			
-		return null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("");
+		sb.append("Checkpoint KM: ");
+		sb.append(pontoDeAtualizacao);
+		sb.append("  --> Carro ");
+		sb.append(nome);
+		sb.append("\n");
+		return sb.toString();
 	}
 	
 	/**
@@ -226,27 +248,47 @@ public class Pista {
 	 * @author  angelo_foletto
 	 * @version 1.0
 	 * @since   2020-12-01
+	 * @update  2020-12-02
 	 */
-	private static void listaCarroPopulacao() {
-		veiculoParouPitstop = new ArrayList<String>();
+	private static void listaVerificacaoCheckpointIserir() {
+		veiculoPassouPontoVerificacao = new ArrayList<String>();
 		for (String i : Main.NOME_CARRO)
-			veiculoParouPitstop.add(i);
+			veiculoPassouPontoVerificacao.add(i);
 	}
 
-	public static boolean listaCarroRemoveUm(String nome) {
-		for (int i = 0; i < veiculoParouPitstop.size(); i++)
-			if (veiculoParouPitstop.get(i).equals(nome)) {
-				veiculoParouPitstop.remove(i);
+	/**
+	 * Remove um veículo da lista que cruzou o ponto de verificação.
+	 * 
+	 * @return void
+	 * 
+	 * @author  angelo_foletto
+	 * @version 1.0
+	 * @since   2020-12-01
+	 * @update  2020-12-02
+	 */
+	public static boolean listaVerificacaoCheckpointRemoveUm(String nome) {
+		for (int i = 0; i < veiculoPassouPontoVerificacao.size(); i++)
+			if (veiculoPassouPontoVerificacao.get(i).equals(nome)) {
+				veiculoPassouPontoVerificacao.remove(i);
 				return true;
 			}
 		return false;
 	}
 	
-	public static void listaCarroVerificacao() {
-		if (veiculoParouPitstop.isEmpty()) {
-			listaCarroPopulacao();
-			gas += gasFixo;
-			pneu += pneuFixo;
+	/**
+	 * Valida se todos os veículos já cruzaram o ponto de verificação.
+	 * 
+	 * @return void
+	 * 
+	 * @author  angelo_foletto
+	 * @version 1.0
+	 * @since   2020-12-01
+	 * @update  2020-12-02
+	 */
+	public static void listaVerificacaoCheckpoint() {
+		if (veiculoPassouPontoVerificacao.isEmpty()) {
+			listaVerificacaoCheckpointIserir();
+			pontoDeAtualizacao += PONTO_DE_ATUALIZACAO_AVANCO;
 		}
 	}
 }

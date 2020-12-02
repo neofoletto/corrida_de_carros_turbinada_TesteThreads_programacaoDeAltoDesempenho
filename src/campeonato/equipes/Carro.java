@@ -160,12 +160,12 @@ public class Carro extends Thread {
 	public void run() {
 		while (this.distanciaPercorrida < this.distanciaTotal) {
 			avancar();
-			if (this.distanciaPercorrida < Pista.getPontoDeAtualizacao())
+			if (this.distanciaPercorrida >= Pista.getPontoDeAtualizacao() 
+					&& Pista.listaVerificacaoCheckpointRemoveUm(nome)) {
+				System.out.print(Pista.pontoDeAtualizacao(this.nome));
+				Pista.listaVerificacaoCheckpoint();
+			} else 
 				atualizacao();
-			else {
-				//System.out.println(atualizacao());
-				System.out.println(Pista.pontoDeAtualizacao(this.nome));
-			}
 			if ((this.distanciaPercorrida >= Pista.getGas() || this.distanciaPercorrida >= Pista.getPneu())
 					&& Pista.listaCarroRemoveUm(this.nome)) {
 				System.out.println(pitStop());

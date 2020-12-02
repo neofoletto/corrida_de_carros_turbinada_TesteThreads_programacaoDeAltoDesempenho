@@ -25,7 +25,7 @@ public class Main {
 			};
 	
 	//Distância do percurso em quilometros
-	public static final int DISTANCIA_DA_CORRIDA = 150; 
+	public static final int DISTANCIA_DA_CORRIDA = 145; 
 
 	/**
 	 * Responsável por executar o programa, criando e chamando o objeto para
@@ -61,7 +61,7 @@ public class Main {
 		System.out.println(" * * * LARGADA * * *");
 		System.out.printf("CONDIÇÕES DA PISTA: %s \n", clima_pista);
 		System.out.printf("HOJE TEREMOS %d VEÍCULOS NA PISTA!!!\n", quantidade_carro);
-		System.out.printf("! ! ! FAÇAM SUAS APOSTAS, LET's ROCK ! ! !");
+		System.out.printf("! ! ! FAÇAM SUAS APOSTAS, LET's ROCK ! ! !\n");
 		//sleep(5000);
 		
 		for (int x = 0; x < quantidade_carro; x++) {
