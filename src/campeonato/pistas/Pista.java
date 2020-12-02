@@ -37,8 +37,6 @@ public class Pista {
 	private static double pneu;
 	private static double pneuFixo;
 	private static double pontoDeAtualizacao;
-	private static int count;
-	private static int numeroCarros;
 
 	/**
 	 * Construcor
@@ -50,7 +48,7 @@ public class Pista {
 	 * @since   2020-11-26
 	 * @update  2020-12-02
 	 */
-	public Pista(String key, int numeroCarros) {
+	public Pista(String key) {
 		switch (key) {
 		case "seco":
 			seco();
@@ -61,9 +59,7 @@ public class Pista {
 		default:
 			seco();
 		}
-		this.pontoDeAtualizacao = 0;
-		this.count = 0;
-		this.numeroCarros = numeroCarros;
+		this.pontoDeAtualizacao = PONTO_DE_ATUALIZACAO_AVANCO;
 		
 		listaCarroPopulacao();
 		listaVerificacaoCheckpointIserir();
@@ -192,11 +188,15 @@ public class Pista {
 	 * @update  2020-12-02
 	 */
 	public static boolean listaCarroRemoveUm(String nome) {
-		for (int i = 0; i < veiculoParouPitstop.size(); i++)
-			if (veiculoParouPitstop.get(i).equals(nome)) {
-				veiculoParouPitstop.remove(i);
-				return true;
-			}
+		try {
+			for (int i = 0; i < veiculoParouPitstop.size(); i++)
+				if (veiculoParouPitstop.get(i).equalsIgnoreCase(nome)) {
+					veiculoParouPitstop.remove(i);
+					return true;
+				}
+		} catch (Exception e) {
+			return false;
+		}
 		return false;
 	}
 	
@@ -267,14 +267,20 @@ public class Pista {
 	 * @update  2020-12-02
 	 */
 	public static boolean listaVerificacaoCheckpointRemoveUm(String nome) {
-		for (int i = 0; i < veiculoPassouPontoVerificacao.size(); i++)
-			if (veiculoPassouPontoVerificacao.get(i).equals(nome)) {
-				veiculoPassouPontoVerificacao.remove(i);
-				return true;
-			}
+		try {
+			for (int i = 0; i < veiculoPassouPontoVerificacao.size(); i++)
+				if (veiculoPassouPontoVerificacao.get(i) != null) {
+					if (veiculoPassouPontoVerificacao.get(i).equalsIgnoreCase(nome)) {
+						veiculoPassouPontoVerificacao.remove(i);
+						return true;
+					}
+				}
+		} catch (Exception e) {
+			return false;
+		}
 		return false;
 	}
-	
+
 	/**
 	 * Valida se todos os veículos já cruzaram o ponto de verificação.
 	 * 
@@ -285,10 +291,20 @@ public class Pista {
 	 * @since   2020-12-01
 	 * @update  2020-12-02
 	 */
-	public static void listaVerificacaoCheckpoint() {
+	public static void listaVerificacaoCheckpointCompleto() {
 		if (veiculoPassouPontoVerificacao.isEmpty()) {
 			listaVerificacaoCheckpointIserir();
 			pontoDeAtualizacao += PONTO_DE_ATUALIZACAO_AVANCO;
 		}
+	}
+	
+	public static boolean listaVerificacaoCheckpointNovo(double distanciaPercorrida) {
+		if (distanciaPercorrida >= (pontoDeAtualizacao + PONTO_DE_ATUALIZACAO_AVANCO)) {
+			veiculoPassouPontoVerificacao.clear();
+			listaVerificacaoCheckpointIserir();
+			pontoDeAtualizacao += PONTO_DE_ATUALIZACAO_AVANCO;
+			return true;
+		}
+		return false;
 	}
 }

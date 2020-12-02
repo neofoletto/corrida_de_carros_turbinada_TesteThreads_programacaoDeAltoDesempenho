@@ -25,7 +25,7 @@ public class Main {
 			};
 	
 	//Distância do percurso em quilometros
-	public static final int DISTANCIA_DA_CORRIDA = 145; 
+	public static final int DISTANCIA_DA_CORRIDA = 350; 
 
 	/**
 	 * Responsável por executar o programa, criando e chamando o objeto para
@@ -56,7 +56,7 @@ public class Main {
 				//"seco_molhado";
 				//"molhado";
 
-		new Pista(clima_pista, quantidade_carro); //Definição do clima (condições) da pista.
+		new Pista(clima_pista); //Definição do clima (condições) da pista.
 				
 		System.out.println(" * * * LARGADA * * *");
 		System.out.printf("CONDIÇÕES DA PISTA: %s \n", clima_pista);

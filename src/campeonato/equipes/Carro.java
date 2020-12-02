@@ -152,19 +152,21 @@ public class Carro extends Thread {
 	 * @return void
 	 * 
 	 * @author  angelo_foletto
-	 * @version 1.2
+	 * @version 2.0
 	 * @since   2020-11-19
-	 * @update  2020-11-26
+	 * @update  2020-12-02
 	 */
 	@Override
 	public void run() {
 		while (this.distanciaPercorrida < this.distanciaTotal) {
 			avancar();
+			Pista.listaVerificacaoCheckpointNovo(distanciaPercorrida);
 			if (this.distanciaPercorrida >= Pista.getPontoDeAtualizacao() 
 					&& Pista.listaVerificacaoCheckpointRemoveUm(nome)) {
 				System.out.print(Pista.pontoDeAtualizacao(this.nome));
-				Pista.listaVerificacaoCheckpoint();
-			} else 
+				Pista.listaVerificacaoCheckpointCompleto();
+			} 
+			else 
 				atualizacao();
 			if ((this.distanciaPercorrida >= Pista.getGas() || this.distanciaPercorrida >= Pista.getPneu())
 					&& Pista.listaCarroRemoveUm(this.nome)) {
